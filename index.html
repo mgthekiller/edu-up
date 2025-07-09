@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edu Up</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+<style>
+  :root {
+  --main-bg: #101522;
+}
+
+  .hero {
+  text-align: center;
+  padding: 5rem 1rem;
+  background: linear-gradient(to top, #181c2f, #101522);
+  border-bottom: 1px solid #ccc;
+  min-height: calc(100vh - 180px); /* ارتفاع يغطي الشاشة ناقص الهيدر والفوتر */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero h2 {
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #2196f3;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #e0e6ed;
+  max-width: 800px;
+  line-height: 1.8;
+}
+
+/* ✅ صور الهيرو */
+.hero-image-container {
+  margin-top: 3rem;
+  width: 80%;
+  max-width: 700px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.hero-image-container img {
+  width: calc(50% - 5px); /* صورتين جنب بعض مع فرق بسيط */
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* ✅ موبايل وأجهزة أصغر */
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .hero h2 {
+    font-size: 2.2rem;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+  }
+
+  .hero-image-container {
+    width: 90%;
+    margin-top: 2rem;
+  }
+
+  .hero-image-container img {
+    width: 100%; /* كل صورة تاخد صف لوحدها */
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 3rem 0.5rem;
+  }
+
+  .hero h2 {
+    font-size: 1.8rem;
+  }
+
+  .hero p {
+    font-size: 0.95rem;
+  }
+
+  .hero-image-container {
+    width: 95%;
+    margin-top: 1.5rem;
+  }
+}
+.dashboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: --main-bg;
+  padding: 2rem;
+  font-family: 'Cairo', sans-serif;
+  direction: rtl;
+}
+
+.badges-section {
+  background-color: #030525;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  width: 500px;
+}
+
+.badges-section .tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.badges-section .tabs .tab {
+  flex: 1;
+  padding: 10px;
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
+  color: #333;
+}
+
+.badges-section .tabs .tab.active {
+  border-bottom: 3px solid #1976d2;
+  color: #1976d2;
+}
+
+.badges-section .subtext {
+  margin: 15px 0;
+  color: #777;
+  font-size: 14px;
+}
+
+.badges-list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.badges-list img {
+  width: 60px;
+  height: 60px;
+}
+
+.points-info {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.points-info div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.points-info .points {
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin: 0;
+  color: #1976d2;
+}
+
+.star,
+.badge-star {
+  font-size: 1.5rem;
+  color: #f9b234;
+}
+
+/* مدرسين الشهر */
+.top-teachers {
+  background-color: #16033b;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  width: 300px;
+}
+
+.top-teachers h3 {
+  margin-bottom: 20px;
+  color: #1976d2;
+  text-align: center;
+  font-size: 20px;
+}
+
+.top-teachers ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.top-teachers li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.top-teachers li img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #1976d2;
+}
+
+.top-teachers li p {
+  margin: 0;
+  font-weight: bold;
+  color: #333;
+}
+
+.top-teachers li span {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+.tab-btn.active {
+  border-bottom: 2px solid #2196f3;
+  font-weight: bold;
+}
+
+.top-students-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  padding: 10px;
+}
+
+.student-card {
+  background: #120141;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-right: 5px solid transparent;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: transform 0.3s;
+}
+
+.student-card:hover {
+  transform: translateY(-4px);
+}
+
+.student-card span {
+  font-size: 24px;
+}
+
+.student-card h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #222;
+}
+
+.student-card p {
+  margin: 5px 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.student-card.gold {
+  border-right-color: gold;
+}
+.student-card.silver {
+  border-right-color: silver;
+}
+.student-card.bronze {
+  border-right-color: #cd7f32;
+}
+
+</style>
+</head>
+<body>
+
+  <span class="sidebar-toggle" onclick="openNav()">&#9776;</span>
+
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <a href="#" onclick="showGradesModal('المرحلة التمهيدية')">المرحلة التمهيدية</a>
+
+    <a href="#" onclick="showGradesModal('المرحلة الابتدائية')">المرحلة الابتدائية</a>
+
+    <a href="#" onclick="showGradesModal('المرحلة الإعدادية')">المرحلة الإعدادية</a>
+
+    <a href="#" onclick="showGradesModal('المرحلة الثانوية')">المرحلة الثانوية</a>
+
+    <a href="#" onclick="showCoursesModal()">الكورسات المتخصصة</a>
+    <a href="#" onclick="showBooksModal()">الكتب الدراسية والمراجع</a>
+  </div>
+
+  <header>
+    <div class="logo">
+      <img src="image.png" alt="Edu Up Logo">
+      <h1>Edu Up</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a onclick="openNav()">التمهيدي</a></li>
+        <li><a onclick="openNav()">الابتدائي</a></li>
+        <li><a onclick="openNav()">الإعدادي</a></li>
+        <li><a onclick="openNav()">الثانوي</a></li>
+        <li><a onclick="openNav()">الكورسات المتخصصة</a></li>
+      </ul>
+    </nav>
+    <div class="auth-buttons">
+      <span id="userInfo" class="user-info"></span>
+      <button id="loginBtn" onclick="openAuthModal('login')">تسجيل الدخول</button>
+      <button id="registerBtn" class="register" onclick="openAuthModal('register')">انشاء حساب</button>
+      <button id="logoutBtn" style="display:none;" onclick="logout()">تسجيل خروج</button>
+    </div>
+  </header>
+
+ <section class="hero">
+  <p class="welcome-message" id="welcomeMessage"></p>
+  <h2>منصتك المتكاملة للعلم والتطور</h2>
+  <p>
+    مرحباً بك في Edu Up، حيث يلتقي الشغف بالتعلم بالتميز الأكاديمي. نقدم لك تجربة تعليمية فريدة ومتكاملة، تشمل جميع المراحل الدراسية من التمهيدي وحتى الثانوي، بالإضافة إلى كورسات متخصصة لتنمية مهاراتك.
+    اكتشف عالمًا من المعرفة مع أفضل المدرسين والمنهجيات الحديثة، وابدأ رحلتك نحو مستقبل مشرق.
+    تصفح المراحل الدراسية والكورسات عبر القائمة الجانبية.
+  </p>
+  <div class="hero-image-container">
+    <img src="image (5).jpg" alt="طلاب يتعلمون على منصة Edu Up">
+    <img src="STUDY.jpg" alt="طلاب يتعلمون على منصة Edu Up">
+  </div>
+</section>
+
+
+  <div id="gradesOverlay" class="overlay">
+    <div class="modal">
+      <span class="close-btn" onclick="closeModal('gradesOverlay')">&times;</span>
+      <h3 id="gradesModalTitle">السنوات الدراسية في [اسم المرحلة]</h3>
+      <div class="loading-spinner" id="gradesSpinner"></div> <ul id="gradesList">
+        </ul>
+    </div>
+  </div>
+
+  <div id="subjectsOverlay" class="overlay">
+    <div class="modal">
+      <span class="close-btn" onclick="closeModal('subjectsOverlay')">&times;</span>
+      <h3 id="subjectsModalTitle">مواد [السنة الدراسية]</h3>
+      <div class="loading-spinner" id="subjectsSpinner"></div> <ul id="subjectsList">
+        </ul>
+    </div>
+  </div>
+
+  <div id="teachersOverlay" class="overlay">
+    <div class="modal">
+      <span class="close-btn" onclick="closeModal('teachersOverlay')">&times;</span>
+      <h3 id="teachersModalTitle">مدرسو مادة [اسم المادة]</h3>
+      <div class="loading-spinner" id="teachersSpinner"></div> <ul id="teachersList">
+        </ul>
+    </div>
+  </div>
+
+  <div id="coursesOverlay" class="overlay">
+    <div class="modal">
+      <span class="close-btn" onclick="closeModal('coursesOverlay')">&times;</span>
+      <h3>الكورسات المتخصصة</h3>
+      <div class="loading-spinner" id="coursesSpinner"></div> <ul id="coursesList">
+        </ul>
+    </div>
+  </div>
+
+  <div id="booksOverlay" class="overlay">
+    <div class="modal">
+      <span class="close-btn" onclick="closeModal('booksOverlay')">&times;</span>
+      <h3>الكتب الدراسية والمراجع</h3>
+      <div class="loading-spinner" id="booksSpinner"></div> <ul id="booksList">
+        <li><i class="fas fa-book"></i> كتاب الرياضيات للصف الأول الابتدائي <span class="price">50</span></li>
+        <li><i class="fas fa-book"></i> كتاب العلوم للصف الثالث الإعدادي <span class="price">65</span></li>
+        <li><i class="fas fa-book"></i> مرجع النحو العربي الشامل <span class="price">80</span></li>
+        <li><i class="fas fa-book"></i> مجموعة قصص قصيرة للأطفال <span class="price">30</span></li>
+        <li><i class="fas fa-book"></i> أساسيات الكيمياء العضوية <span class="price">90</span></li>
+        <li><i class="fas fa-book"></i> أطلس خرائط العالم <span class="price">75</span></li>
+        </ul>
+    </div>
+  </div>
+
+  <div id="authOverlay" class="overlay">
+    <div class="modal">
+      <span class="close-btn" onclick="closeModal('authOverlay')">&times;</span>
+      <div class="auth-tabs">
+        <button id="loginTab" onclick="showAuthTab('login')">تسجيل الدخول</button>
+        <button id="registerTab" onclick="showAuthTab('register')">انشاء حساب</button>
+      </div>
+
+      <div class="auth-content">
+        <div id="loginForm" class="auth-form">
+          <h3>تسجيل الدخول</h3>
+          <label for="loginUsername">اسم المستخدم / البريد الإلكتروني:</label>
+          <input type="text" id="loginUsername" placeholder="ادخل اسم المستخدم أو البريد الإلكتروني">
+
+          <label for="loginPassword">كلمة المرور:</label>
+          <input type="password" id="loginPassword" placeholder="ادخل كلمة المرور">
+
+          <button onclick="handleLogin()">تسجيل الدخول</button>
+          <p class="auth-message" id="loginMessage"></p>
+          <p class="toggle-link">ليس لديك حساب؟ <a onclick="showAuthTab('register')">انشاء حساب جديد</a></p>
+        </div>
+
+        <div id="registerForm" class="auth-form">
+          <h3>انشاء حساب جديد</h3>
+          <label for="registerUsername">اسم المستخدم:</label>
+          <input type="text" id="registerUsername" placeholder="ادخل اسم المستخدم">
+
+          <label for="registerEmail">البريد الإلكتروني:</label>
+          <input type="email" id="registerEmail" placeholder="ادخل بريدك الإلكتروني">
+
+          <label for="registerPassword">كلمة المرور:</label>
+          <input type="password" id="registerPassword" placeholder="ادخل كلمة المرور">
+
+          <label for="confirmPassword">تأكيد كلمة المرور:</label>
+          <input type="password" id="confirmPassword" placeholder="تأكيد كلمة المرور">
+
+          <button onclick="handleRegister()">انشاء حساب</button>
+          <p class="auth-message" id="registerMessage"></p>
+          <p class="toggle-link">لديك حساب بالفعل؟ <a onclick="showAuthTab('login')">تسجيل الدخول</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <section class="cta">
+    <h3>انضم لعائلة Edu Up اليوم!</h3>
+    <p>سجّل الآن وابدأ رحلتك التعليمية نحو مستقبل أفضل. المعرفة بين يديك!</p>
+    <button onclick="openAuthModal('register')">ابدأ التعلم الآن</button>
+  </section>
+<header>لوحة تحكم Edu Up</header>
+
+ <div class="dashboard-container">
+  <!-- الأوسمة -->
+  <div class="badges-section">
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('badges', this)">الأوسمة</button>
+      <button class="tab" onclick="showTab('topStudents', this)">لوحة الأوائل</button>
+    </div>
+    <p class="subtext">أحدث أوسمتي</p>
+    <div class="badges-list">
+      <p>يرجا التسجيل اولا لتكون احد ابطالنا </p>
+    </div>
+    <div class="points-info">
+      <div>
+        <span class="star">⭐</span>
+        <div>
+          <p class="points">0</p>
+          <p>مجموع نقاطي</p>
+        </div>
+      </div>
+      <div>
+        <span class="badge-star">🌟</span>
+        <div>
+          <p class="points">0</p>
+          <p>أوسمتي</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- مدرسين الشهر -->
+  <div class="top-teachers">
+    <h3>👨‍🏫 مدرسين الشهر</h3>
+    <ul>
+      <li>
+        
+        <div>
+          <p>أ. محمد عبد الرحمن</p>
+          <span>نقاط: 1520</span>
+        </div>
+      </li>
+      <li>
+        
+        <div>
+          <p>أ. آية خليل</p>
+          <span>نقاط: 1340</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <p>أ. مصطفى عمر</p>
+          <span>نقاط: 1285</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="tab-content" id="topStudents">
+  <div class="top-students-grid">
+    <div class="student-card gold">
+      <span>🥇</span>
+      <div>
+        <h4>أحمد منصور</h4>
+        <p>3780 نقطة</p>
+      </div>
+    </div>
+    <div class="student-card silver">
+      <span>🥈</span>
+      <div>
+        <h4>سارة الجندي</h4>
+        <p>3620 نقطة</p>
+      </div>
+    </div>
+    <div class="student-card bronze">
+      <span>🥉</span>
+      <div>
+        <h4>يوسف علاء</h4>
+        <p>3450 نقطة</p>
+      </div>
+    </div>
+    <div class="student-card">
+      <span>🎖️</span>
+      <div>
+        <h4>نورهان عبد الفتاح</h4>
+        <p>3300 نقطة</p>
+      </div>
+    </div>
+    <div class="student-card">
+      <span>🎖️</span>
+      <div>
+        <h4>كريم سامي</h4>
+        <p>3180 نقطة</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+    <p>&copy; 2025 Edu Up. جميع الحقوق محفوظة.</p>
+    <p>
+      <a href="#">سياسة الخصوصية</a> |
+      <a href="#">شروط الاستخدام</a> |
+      <a href="#">تواصل معنا</a>
+    </p>
+  </footer>
+
+  <script src="script.js">
+  </script>
+  <script>
+function showTab(tabId, element) {
+  // شيل active من كل الأزرار
+  document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+  // ضيف active للزر الحالي
+  element.classList.add('active');
+
+  // خفي كل التابات
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+
+  // أظهر التاب المطلوب
+  document.getElementById(tabId).classList.add('active');
+}
+
+
+  </script>
+</body>
+</html>
