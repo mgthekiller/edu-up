@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edu Up Games</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom right, #fff9e6, #ffe082);
+      text-align: center;
+      padding: 20px;
+      color: #333;
+      margin: 0;
+    }
+    header {
+      background-color: #ffb300;
+      padding: 20px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: white;
+    }
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    button {
+      background-color: #f57c00;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      margin: 10px;
+      border-radius: 20px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 150px;
+    }
+    button:hover {
+      background-color: #fb8c00;
+    }
+    .content {
+      margin-top: 40px;
+      font-size: 2rem;
+      min-height: 100px;
+    }
+    .next-btn {
+      background-color: #0288d1;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      margin-top: 20px;
+      border-radius: 15px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .next-btn:hover {
+      background-color: #039be5;
+    }
+    input {
+      padding: 10px;
+      font-size: 1.2rem;
+      width: 300px;
+      margin: 10px 0;
+    }
+    #feedback {
+      margin-top: 15px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>تعليم المدرسة - ابتدائي وإعدادي وكيجي</h1>
+  </header>
+  
+  <h1>اختر المرحلة الدراسية</h1><br>
+  <div class="menu">
+    <button onclick="selectGrade('primary')">المرحلة الابتدائية</button>
+    <button onclick="selectGrade('secondary')">المرحلة الإعدادية</button>
+    <button onclick="selectGrade('kg')">الكيجي</button>
+  </div>
+
+  <div class="content" id="gameContent">
+    <p>👈 اختر المرحلة الدراسية من الأعلى للبدء</p>
+  </div>
+
+  <script>
+    const primaryData = {
+      english: [
+        { question: "ما هو الحرف الأول في الأبجدية؟", answer: "A" },
+        { question: "ما هو الحرف الثاني في الأبجدية؟", answer: "B" },
+        { question: " ماذا تعني كلمه قطه بي الانجليزيه", answer: "cat" }
+      ],
+      math: [
+        { question: "ما هو 2 + 2؟", answer: "4" },
+        { question: "ما هو 5 - 3؟", answer: "2" }
+      ],
+      arabic: [
+        { question: "ما هو جمع كلمة كتاب؟", answer: "كتب" },
+        { question: "ما هو ضد كلمة طويل؟", answer: "قصير" }
+      ]
+    };
+
+    const secondaryData = {
+      english: [
+        { question: "What is the capital of France?", answer: "Paris" },
+        { question: "What is 5 + 7?", answer: "12" }
+      ],
+      math: [
+        { question: "Solve for x: 2x + 3 = 7", answer: "2" },
+        { question: "What is the area of a rectangle with length 5 and width 3?", answer: "15" }
+      ],
+      arabic: [
+        { question: "ما هو فعل ماضٍ من كلمة كتب؟", answer: "كتب" },
+        { question: "ما هو اسم الفاعل من كلمة درس؟", answer: "دارس" }
+      ],
+      studies: [
+        { question: "ما هي عاصمة مصر؟", answer: "القاهرة" },
+        { question: "ما هو أكبر محيط في العالم؟", answer: "المحيط الهادئ" }
+      ],
+      science: [
+        { question: "ما هو العنصر الكيميائي الذي يرمز له بـ H؟", answer: "الهيدروجين" },
+        { question: "ما هو الكوكب الأقرب إلى الشمس؟", answer: "عطارد" }
+      ],
+      computer: [
+        { question: "ما هو اختصار كلمة 'معلوماتية'؟", answer: "حاسب" },
+        { question: "ما هو نظام التشغيل الأكثر شيوعًا؟", answer: "ويندوز" }
+      ]
+    };
+
+    const kgData = {
+      letters: [
+        { text: "أ", image: "" },
+        { text: "ب", image: "" },
+        { text: "ت", image: "" }
+      ],
+      numbers: [
+        { text: "١", image: "" },
+        { text: "٢", image: "" },
+        { text: "٣", image: "" }
+      ],
+      colors: [
+        { text: "أحمر", image: "" },
+        { text: "أصفر", image: "" },
+        { text: "أزرق", image: "" }
+      ],
+      animals: [
+        { text: "أسد", image: "" },
+        { text: "بطة", image: "" },
+        { text: "تمساح", image: "" }
+      ]
+    };
+
+    let currentIndex = 0;
+    let currentType = '';
+    let currentGradeData = {};
+
+    function selectGrade(grade) {
+      if (grade === 'primary') {
+        currentGradeData = primaryData;
+        showSubjectMenu(['english', 'math', 'arabic']);
+      } else if (grade === 'secondary') {
+        currentGradeData = secondaryData;
+        showSubjectMenu(['english', 'math', 'arabic', 'studies', 'science', 'computer']);
+      } else if (grade === 'kg') {
+        currentGradeData = kgData;
+        showSubjectMenu(['letters', 'numbers', 'colors', 'animals']);
+      }
+    }
+
+    function showSubjectMenu(subjects) {
+      const content = document.getElementById('gameContent');
+      const buttons = subjects.map(subject => `<button onclick="startGame('${subject}')">${subject}</button>`).join('');
+      content.innerHTML = buttons;
+    }
+
+    function startGame(type) {
+      currentType = type;
+      currentIndex = 0;
+      if (currentGradeData === kgData) {
+        showItem();
+      } else {
+        showQuestion();
+      }
+    }
+
+    function showItem() {
+      const item = currentGradeData[currentType][currentIndex];
+      const content = document.getElementById('gameContent');
+      content.innerHTML = `
+        <div>${item.text}</div>
+        ${item.image ? `<img src="${item.image}" alt="${item.text}" />` : ''}
+        <div><button class="next-btn" onclick="nextItem()">التالي</button></div>
+      `;
+      speak(item.text);
+    }
+
+    function showQuestion() {
+      const item = currentGradeData[currentType][currentIndex];
+      const content = document.getElementById('gameContent');
+      content.innerHTML = `
+        <div>${item.question}</div>
+        <input type="text" id="studentAnswer" placeholder="أدخل إجابتك">
+        <button onclick="checkAnswer('${item.answer}')">تحقق</button>
+        <button class="next-btn" onclick="nextItem()">تخطي</button>
+        <div id="feedback"></div>
+      `;
+    }
+
+    function checkAnswer(correctAnswer) {
+      const studentAnswer = document.getElementById('studentAnswer').value.trim();
+      const feedback = document.getElementById('feedback');
+      
+      if (!studentAnswer) {
+        feedback.innerHTML = "الرجاء إدخال إجابة!";
+        feedback.style.color = "#ff9800";
+        return;
+      }
+
+      if (studentAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        feedback.innerHTML = "✔ إجابة صحيحة! سيتم الانتقال للسؤال التالي";
+        feedback.style.color = "green";
+        setTimeout(nextItem, 1500);
+      } else {
+        feedback.innerHTML = "✖ إجابة خاطئة. حاول مرة أخرى!";
+        feedback.style.color = "red";
+      }
+    }
+
+    function showAnswer() {
+      const item = currentGradeData[currentType][currentIndex];
+      const content = document.getElementById('gameContent');
+      content.innerHTML = `
+        <div>${item.question}</div>
+        <div>الإجابة: ${item.answer}</div>
+        <div><button class="next-btn" onclick="nextItem()">التالي</button></div>
+      `;
+    }
+
+    function nextItem() {
+      currentIndex++;
+      if (currentIndex >= currentGradeData[currentType].length) {
+        currentIndex = 0;
+      }
+      if (currentGradeData === kgData) {
+        showItem();
+      } else {
+        showQuestion();
+      }
+    }
+
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ar-EG';
+      speechSynthesis.speak(utterance);
+    }
+  </script>
+</body>
+</html>
